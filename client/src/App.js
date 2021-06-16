@@ -1,6 +1,6 @@
 import React from "react";
 import UserRoute from "./Components/Routes/UserRoute";
-import PublicRoute from "./Components/Routes/PublicRoute";
+// import PublicRoute from "./Components/Routes/PublicRoute";
 import Login from "./Components/Pages/Auth/Login";
 import Register from "./Components/Pages/Auth/Register";
 import Dashboard from "./Components/Pages/UserPages/Dashboard";
@@ -25,11 +25,11 @@ function App() {
         <CommentDrawer />
         <Switch>
           {/* Strictily for Public Routes */}
-          <PublicRoute exact path="/login" component={Login} />
-          <PublicRoute exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/create-profile/:id" component={CreateProfile} />
           {/* Private Routes */}
           <UserRoute exact path="/" component={Dashboard} />
-          <Route exact path="/create-profile/:id" component={CreateProfile} />
           <UserRoute
             exact
             path="/update-profile/:id"

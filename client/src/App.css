@@ -1,0 +1,482 @@
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+a {
+  color: black !important;
+  text-decoration: none;
+}
+a:hover {
+  color: #000 !important;
+}
+.test {
+  border: 1px solid black;
+  background-color: #000;
+}
+.ant-drawer-content-wrapper {
+  border-radius: 2rem 0 0 2rem;
+  overflow: hidden;
+}
+.fixed {
+  position: fixed;
+}
+.ant-modal-content {
+  border-radius: 1rem !important;
+  overflow: hidden;
+}
+@media only screen and (max-width: 769px) {
+  .ant-drawer-content-wrapper {
+    border-radius: 2rem 2rem 0 0;
+    overflow: hidden;
+  }
+  .fixed {
+    position: relative;
+  }
+}
+.pointer {
+  cursor: pointer;
+}
+.login,
+.register,
+.createProfile,
+.dashboard,
+.postpage,
+.userpage,
+.updateProfile {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 10vh 0;
+}
+.auth-card {
+  width: 50%;
+  padding: 3rem 1rem 3rem 1rem;
+  border-radius: 1.25rem;
+  box-shadow: 1rem 1rem 1rem -1.2rem #000;
+}
+@media only screen and (max-width: 450px) {
+  .auth-card {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .auth-card {
+    width: 75%;
+  }
+}
+
+.Nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  height: 8vh;
+  width: 100vw;
+  box-shadow: 0rem 0rem 0.5rem 0rem #000;
+  background-color: #fff;
+  z-index: 90;
+}
+.navigation a {
+  padding: 1rem 1rem 1rem 1rem;
+}
+.navlinks {
+  font-size: large;
+  margin-right: 20px;
+}
+.username {
+  margin-right: 10px;
+}
+.userimage {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.userimage img {
+  width: 40px;
+  object-fit: cover;
+}
+.postcard {
+  margin: 1rem;
+  padding: 0;
+  width: 80%;
+  min-height: 10rem;
+  border-radius: 1rem;
+  box-shadow: 2px 3px 6px 0px rgba(0, 0, 0, 0.4);
+}
+.post-img {
+  padding: 0 0.8rem;
+  overflow: hidden;
+  position: relative;
+  height: 20rem;
+}
+.post-page-img {
+  padding: 0 0.8rem;
+  overflow: hidden;
+  position: relative;
+}
+.post-page-img img {
+  width: 100%;
+  border-radius: 1rem;
+}
+.post-img img {
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
+}
+.post-img-overlay {
+  width: calc(100% - 1.55rem);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: 0.3s all ease-in-out;
+}
+.post-img-overlay:hover {
+  opacity: 1;
+}
+.card-caption-cont {
+  padding-left: 1.8rem;
+  max-height: 3rem;
+}
+.post-actions {
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  padding: 0.8rem;
+}
+.post-body .row {
+  padding: 1rem 2rem 1rem 2rem;
+}
+.like,
+.see-post {
+  right: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 5;
+  padding: 0 0.4rem;
+}
+.like-count {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1.5rem;
+}
+.like {
+  bottom: 3rem;
+}
+.see-post {
+  bottom: 1rem;
+}
+.group {
+  display: inline-flex;
+}
+.user,
+.post-card-user {
+  padding: 0.8rem;
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+.user {
+  height: 3rem;
+  border-radius: 3rem;
+  max-width: 12rem;
+  padding: 0 0rem 0 0.5rem;
+  background: #fff;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.4);
+}
+.postpage .post-body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+}
+.user .userimg img,
+.like-user .userimg img,
+.post-card-user .userimg img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.user .username,
+.like-user .username,
+.post-card-user .username {
+  margin-left: 15px;
+}
+.post-user {
+  display: flex;
+  align-items: center;
+}
+.post-user .post-userimg {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+.post-user .post-username {
+  margin-left: 20px;
+  font-size: large;
+  font-weight: 600;
+}
+.post-header-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.post-header-btn i {
+  margin-right: 10px;
+}
+.post-header-btn .btn {
+  border-radius: 2rem;
+  font-size: small;
+}
+.like-counter {
+  width: 7rem;
+  height: 3rem;
+  background-color: #fff;
+  border-radius: 3rem;
+  position: absolute;
+  left: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 5;
+  bottom: 1.5rem;
+}
+.like-counter span {
+  margin-left: 10px;
+  font-size: small;
+  color: #000;
+}
+.post-caption {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  text-align: left;
+}
+.post-comments {
+  width: 100%;
+  padding: 0 0.5rem 1rem 0.5rem;
+}
+.comment-card {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 5px 0 rgba(0, 0, 0, 0.3);
+}
+@media only screen and (max-width: 730px) {
+  .postcard {
+    width: 100%;
+  }
+}
+.liked-by {
+  border-radius: 1rem;
+  margin-top: 80px;
+  padding: 0.5rem;
+  box-shadow: 1px 4px 5px 0 rgba(0, 0, 0, 0.4);
+  max-height: 15rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.like-user {
+  height: 3rem;
+  max-width: 12rem;
+  padding: 0 0rem 0 0.5rem;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+.mr-10 {
+  margin: 0 10px 0 0;
+}
+.border-Slytherin {
+  border: 4px solid #2a623d;
+}
+.border-Gryffindor {
+  border: 4px solid #ae0001;
+}
+.border-Ravenclaw {
+  border: 4px solid #222f5b;
+}
+.border-Hufflepuff {
+  border: 4px solid #f0c75e;
+}
+.user-info .user-house {
+  position: relative;
+  width: 100%;
+  max-width: 12rem;
+  max-height: 12rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.user-info .user-img {
+  border-radius: 50%;
+  padding: 0.2rem;
+}
+.user-info .user-img img {
+  display: block;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+}
+.user-info .house-badge {
+  position: absolute;
+  width: 4rem;
+  height: 6rem;
+  /* border: 1px solid black; */
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.user-info .user-name {
+  font-weight: 600;
+}
+.user-info .bio {
+  text-align: left;
+}
+.user-card {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 5px 0 rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+.follow-count {
+  width: 100%;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 1px 4px 5px 0 rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+.follow-count span {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+}
+.badge-Slytherin {
+  background: url("https://i.imgur.com/T4Q9OLb.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.badge-Gryffindor {
+  background: url("https://i.imgur.com/eO0L3QR.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.badge-Hufflepuff {
+  background: url("https://i.imgur.com/KUqZphF.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.badge-Ravenclaw {
+  background: url("https://i.imgur.com/gzARbD1.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.preview-img-cont {
+  width: 100%;
+  height: auto;
+  padding: 0 1rem;
+}
+.preview-img {
+  width: 100%;
+  height: auto;
+}
+.caption-cont {
+  padding: 1rem;
+}
+.search-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  bottom: 100%;
+  left: 0;
+  z-index: 98;
+  transition: 0.5s;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.search-overlay-visible {
+  bottom: 0;
+}
+.search-input {
+  height: 4rem;
+  border-radius: 5rem;
+}
+.close-btn {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  font-size: 3rem;
+}
+@media only screen and (max-width: 723px) {
+  .close-btn {
+    font-size: 2rem;
+  }
+}
+.search-btn {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  box-shadow: 1px 4px 5px 0 rgba(0, 0, 0, 0.3);
+}
+.inputGroup {
+  position: relative;
+}
+.search-user-card {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+}
+.mobile-nav {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  z-index: 80;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+}
+.mobile-nav i {
+  font-size: large;
+}
+.dp-preview {
+  margin-top: 10px;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+}

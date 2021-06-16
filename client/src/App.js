@@ -11,7 +11,7 @@ import Nav from "./Components/Nav/Nav";
 import UserPage from "./Components/PublicPages/UserPage";
 import CommentDrawer from "./Components/Drawer/CommentDrawer";
 import { ToastContainer } from "react-toastify";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,11 +29,7 @@ function App() {
           <PublicRoute exact path="/register" component={Register} />
           {/* Private Routes */}
           <UserRoute exact path="/" component={Dashboard} />
-          <UserRoute
-            exact
-            path="/create-profile/:id"
-            component={CreateProfile}
-          />
+          <Route exact path="/create-profile/:id" component={CreateProfile} />
           <UserRoute
             exact
             path="/update-profile/:id"

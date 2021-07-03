@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { createProfile } from "../../../Functions/profile";
 const CreateProfile = ({ history }) => {
   const [state, setState] = useState({
-    name: "",
-    bio: "",
-    house: "",
-    dob: "",
-  });
+      name: "",
+      bio: "",
+      house: "",
+      dob: "",
+    }),
+    [sorted, setSorted] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     createProfile(state)
@@ -35,6 +36,7 @@ const CreateProfile = ({ history }) => {
       ...state,
       house: randomElement,
     });
+    setSorted(true);
   };
   return (
     <div className="createProfile">
@@ -59,7 +61,7 @@ const CreateProfile = ({ history }) => {
                   name="name"
                   required
                 />
-                <label htmlFor="name">Your Name</label>
+                <label htmlFor="name">Your Name*</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -71,7 +73,7 @@ const CreateProfile = ({ history }) => {
                   onChange={handleChange}
                   name="bio"
                 />
-                <label htmlFor="bio">Bio:</label>
+                <label htmlFor="bio">Bio:*</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -84,7 +86,7 @@ const CreateProfile = ({ history }) => {
                   onChange={handleChange}
                   required
                 />
-                <label htmlFor="dob">Date of Birth:</label>
+                <label htmlFor="dob">Date of Birth:*</label>
               </div>
               <div className="form-floating mb-3 input-group">
                 <input
@@ -97,8 +99,12 @@ const CreateProfile = ({ history }) => {
                   disabled
                   required
                 />
-                <label htmlFor="password">Your House</label>
-                <button className="btn btn-outline-success" onClick={sort}>
+                <label htmlFor="password">Your House*</label>
+                <button
+                  className="btn btn-outline-success"
+                  onClick={sort}
+                  disabled={sorted}
+                >
                   Sort
                 </button>
               </div>
@@ -106,6 +112,12 @@ const CreateProfile = ({ history }) => {
                 type="submit"
                 className="btn btn-primary form-control"
                 value="Enter"
+                disabled={
+                  state.name.length === 0 ||
+                  state.bio.length === 0 ||
+                  state.dob.length === 0 ||
+                  state.house.length === 0
+                }
               />
             </form>
           </div>

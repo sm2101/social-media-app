@@ -59,7 +59,8 @@ const CreatePostModal = () => {
           setCaption("");
           setImage("");
           setLoading(false);
-          history.push("/dashboard");
+          history.push("/");
+          window.location.reload(true);
         })
         .catch((err) => {
           console.log(err);
@@ -88,10 +89,18 @@ const CreatePostModal = () => {
         onCancel={() => setVisible(false)}
         title="Post"
         footer={[
-          <Button key="back" onClick={handleCancel}>
+          <Button
+            key="back"
+            onClick={handleCancel}
+            disabled={caption.length === 0 || loading}
+          >
             Cancel
           </Button>,
-          <label htmlFor="file" className="btn btn-sm mx-1 btn-outline-primary">
+          <label
+            htmlFor="file"
+            className="btn btn-sm mx-1 btn-outline-primary"
+            disabled={loading}
+          >
             Change Image
           </label>,
           <Button
@@ -99,6 +108,7 @@ const CreatePostModal = () => {
             loading={loading}
             type="primary"
             onClick={handleOk}
+            disabled={caption.length === 0}
           >
             Post
           </Button>,

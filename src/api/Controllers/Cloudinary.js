@@ -9,7 +9,7 @@ const config = {
 cloudinary.config(config);
 
 exports.upload = async (req, res) => {
-  const result = await cloudinary.uploader.upload(req.body.img, {
+  const result = await cloudinary.uploader.upload_large(req.body.img, {
     public_id: `${Date.now()}`,
     resource_type: "auto",
   });

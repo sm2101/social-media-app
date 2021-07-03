@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { commentDrawer } from "../../app/Actions/drawer";
 import CommentCard from "../Cards/CommentCard";
 import { setPost } from "../../app/Actions/post";
+import emptyImg from "../../Images/pngwing.com.png";
 import { Avatar } from "antd";
 import {
   createComment,
@@ -91,6 +92,7 @@ const CommentDrawer = () => {
                 />
                 <button
                   className="btn text-muted"
+                  disabled={text.length === 0}
                   onClick={comment}
                   style={{ fontSize: "large" }}
                 >
@@ -113,8 +115,19 @@ const CommentDrawer = () => {
             />
           ))
         ) : (
-          <div className="d-flex w-100 justify-content-center align-items-center mt-2">
-            <small className="text-muted">Such Empty, Much Wow</small>
+          <div className="w-100 mt-2">
+            <img
+              src={emptyImg}
+              alt=""
+              style={{
+                width: "80px",
+                filter: "grayscale(100%)",
+              }}
+              className="center-x"
+            />
+            <small className="text-muted d-block text-center mt-2">
+              Such Empty, Much Wow
+            </small>
           </div>
         )}
       </div>

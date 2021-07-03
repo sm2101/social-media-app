@@ -114,7 +114,7 @@ const PostPage = ({ match, history }) => {
     deleteImage(post.imageId).then((res) => {
       deletePost(post._id).then((res) => {
         message.success({ content: "Post deleted" });
-        history.push("/dashboard");
+        history.push("/");
       });
     });
   };

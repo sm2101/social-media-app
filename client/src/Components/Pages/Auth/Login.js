@@ -25,8 +25,7 @@ const Login = ({ history }) => {
         history.push("/");
       })
       .catch((err) => {
-        setError(err.response.data.message);
-        toast.error(error);
+        console.log(err);
       });
   };
   return (
@@ -53,7 +52,7 @@ const Login = ({ history }) => {
                 />
                 <label htmlFor="email"> Email:</label>
               </div>
-              <div className="form-floating mb-3 input-group">
+              <div className="form-floating mb-3">
                 <input
                   type={`${visible ? "text" : "password"}`}
                   className={`form-control ${
@@ -66,8 +65,8 @@ const Login = ({ history }) => {
                   required
                 />
                 <label htmlFor="password"> Password:</label>
-                <button
-                  className="btn btn-outline-secondary"
+                <span
+                  className="btn pass-indicator"
                   onClick={() => setVsible(!visible)}
                 >
                   {visible ? (
@@ -75,7 +74,7 @@ const Login = ({ history }) => {
                   ) : (
                     <i className="far fa-eye"></i>
                   )}
-                </button>
+                </span>
               </div>
               <input
                 type="submit"

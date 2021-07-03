@@ -9,9 +9,16 @@ const EditProfileModal = ({ imageId }) => {
   const [visible, setVisible] = useState(false),
     [loading, setLoading] = useState(false),
     [originalImg, setOGImg] = useState(null),
-    [crop, setCrop] = useState({ aspect: 1 / 1 }),
+    [crop, setCrop] = useState({
+      aspect: 1 / 1,
+      width: 200,
+      height: 200,
+      maxWidth: 350,
+      maxHeight: 350,
+    }),
     [image, setImage] = useState(null),
-    [croppedImage, setCroppedImage] = useState(null);
+    [croppedImage, setCroppedImage] = useState(null),
+    cropped = Boolean(croppedImage);
   const handleCancel = () => {
     setVisible(false);
   };
@@ -121,6 +128,7 @@ const EditProfileModal = ({ imageId }) => {
             loading={loading}
             type="primary"
             onClick={handleOk}
+            disabled={!cropped}
           >
             Update
           </Button>,

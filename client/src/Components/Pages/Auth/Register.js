@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { registerData } from "../../../Validators/Validators";
 import { SET_CURRENT_USER } from "../../../app/Actions/types";
 import { registerUser, loginUser } from "../../../Functions/auth";
-import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
+import { message, Progress } from "antd";
 const Register = ({ history }) => {
   const [state, setState] = useState({
       email: "",
@@ -12,14 +12,10 @@ const Register = ({ history }) => {
       passwordConfirm: "",
       username: "",
       image: "",
-      error: "",
     }),
-    [errorEmail, setErrorEmail] = useState(""),
-    [errorPass, setErrorPass] = useState("");
+    [passStrength, setPassStrength] = useState(0);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
-    setErrorPass("");
-    setErrorEmail("");
     console.log("register user");
     e.preventDefault();
     const user = {
@@ -46,27 +42,53 @@ const Register = ({ history }) => {
               history.push(`/create-profile/${user._id}`);
             })
             .catch((err) => {
-              setState({ ...state, error: err.response.data.message });
-              toast.error(state.error);
+              message.error({
+                content: err.response.data.message,
+              });
             });
         })
         .catch((err) => {
-          setState({ ...state, error: err.response.data.message });
-          toast.error(state.error);
+          message.error({
+            content: err.response.data.message,
+          });
         });
-    } else {
-      if (validate.errorEmail) {
-        setErrorEmail(validate.errorEmail);
-      }
-      if (validate.errorPass) {
-        setErrorPass(validate.errorPass);
-      }
     }
   };
+  function scorePassword(pass) {
+    var score = 0;
+    if (!pass) return score;
+
+    // award every unique letter until 5 repetitions
+    // eslint-disable-next-line no-new-object
+    var letters = new Object();
+    for (var i = 0; i < pass.length; i++) {
+      letters[pass[i]] = (letters[pass[i]] || 0) + 1;
+      score += 5.0 / letters[pass[i]];
+    }
+
+    // bonus points for mixing it up
+    var variations = {
+      digits: /\d/.test(pass),
+      lower: /[a-z]/.test(pass),
+      upper: /[A-Z]/.test(pass),
+      nonWords: /\W/.test(pass),
+    };
+
+    var variationCount = 0;
+    for (var check in variations) {
+      variationCount += variations[check] == true ? 1 : 0;
+    }
+    score += (variationCount - 1) * 10;
+
+    return parseInt(score);
+  }
   const handleChange = (e) => {
     e.preventDefault();
     const name = e.target.name;
     const value = e.target.value;
+    if (name === "password") {
+      setPassStrength(scorePassword(value));
+    }
     setState({
       ...state,
       [name]: value,
@@ -85,9 +107,7 @@ const Register = ({ history }) => {
               <div className="form-floating mb-3">
                 <input
                   type="text"
-                  className={`form-control ${
-                    state.error && state.error.length > 0 ? "is-invalid" : ""
-                  }`}
+                  className="form-control"
                   id="username"
                   placeholder="Your online identity"
                   value={state.username}
@@ -100,9 +120,7 @@ const Register = ({ history }) => {
               <div className="form-floating mb-3">
                 <input
                   type="text"
-                  className={`form-control ${
-                    errorEmail && errorEmail.length > 0 ? "is-invalid" : ""
-                  }`}
+                  className="form-control"
                   id="email"
                   placeholder="someone@somewhere.com"
                   value={state.email}
@@ -111,17 +129,12 @@ const Register = ({ history }) => {
                   required
                 />
                 <label htmlFor="email"> Email:</label>
-                <div id="email" className="invalid-feedback">
-                  {errorEmail}
-                </div>
               </div>
               <div className="form-floating mb-3">
                 <input
                   type="password"
                   name="password"
-                  className={`form-control ${
-                    state.error && state.error.length > 0 ? "is-invalid" : ""
-                  }`}
+                  className="form-control"
                   id="password"
                   placeholder="Password"
                   value={state.password}
@@ -129,29 +142,61 @@ const Register = ({ history }) => {
                   required
                 />
                 <label htmlFor="password"> Password:</label>
+                <Progress
+                  type="circle"
+                  percent={passStrength}
+                  showInfo={false}
+                  width={30}
+                  strokeColor={
+                    passStrength > 55
+                      ? "green"
+                      : passStrength > 30
+                      ? "yellow"
+                      : "red"
+                  }
+                  strokeWidth={12}
+                  className="pass-indicator"
+                />
               </div>
               <div className="form-floating mb-3">
                 <input
                   type="password"
                   name="passwordConfirm"
-                  className={`form-control ${
-                    errorPass && errorPass.length > 0 ? "is-invalid" : ""
-                  }`}
+                  className="form-control"
                   id="passwordConfirm"
                   placeholder="Confirm Password"
                   value={state.passwordConfirm}
                   onChange={handleChange}
                   required
                 />
+                <span className="pass-indicator">
+                  {state.passwordConfirm.length !== 0 ? (
+                    state.passwordConfirm === state.password ? (
+                      <i
+                        className="far fa-check-circle"
+                        style={{ color: "green", fontSize: "20px" }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="far fa-times-circle"
+                        style={{ color: "red", fontSize: "20px" }}
+                      ></i>
+                    )
+                  ) : null}
+                </span>
                 <label htmlFor="password">Confirm Password:</label>
-                <div id="passwordConfirm" className="invalid-feedback">
-                  {errorPass}
-                </div>
               </div>
               <input
                 type="submit"
                 className="btn btn-primary form-control"
                 value="Register"
+                disabled={
+                  state.email.length === 0 ||
+                  state.username.length === 0 ||
+                  state.password.length === 0 ||
+                  state.passwordConfirm.length === 0 ||
+                  state.password !== state.passwordConfirm
+                }
               />
             </form>
           </div>

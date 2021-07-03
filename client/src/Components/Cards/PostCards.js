@@ -54,7 +54,7 @@ const PostCards = ({ post, user }) => {
             <span onClick={showUser}>
               <span className="userimg">
                 {post.user.image.length > 0 ? (
-                  <Avatar src={post.user.image} />
+                  <Avatar src={post.user.image} size="sm" />
                 ) : (
                   <Avatar>{post.user.username[0].toUpperCase()}</Avatar>
                 )}
@@ -88,7 +88,7 @@ const PostCards = ({ post, user }) => {
       </div>
       <div className="row">
         <div className="col-12 card-caption-cont">
-          <p>{renderHTML(post.caption)}</p>
+          <p className="mb-0">{renderHTML(post.caption)}</p>
         </div>
       </div>
       {post.images && post.images.length > 0 ? (

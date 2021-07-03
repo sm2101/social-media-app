@@ -59,6 +59,7 @@ exports.getFollowersPost = (req, res) => {
           },
         ],
       })
+        .limit(30)
         .select("-comments")
         .sort([["createdAt", -1]])
         .populate("user", "_id username image")

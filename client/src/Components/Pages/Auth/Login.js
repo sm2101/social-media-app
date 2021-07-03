@@ -4,6 +4,7 @@ import { loginUser } from "../../../Functions/auth";
 import { toast } from "react-toastify";
 import { setUser } from "../../../app/Actions/auth";
 import jwt_decode from "jwt-decode";
+import { message } from "antd";
 const Login = ({ history }) => {
   const [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
@@ -25,7 +26,7 @@ const Login = ({ history }) => {
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        message.error(err.response.data.message);
       });
   };
   return (

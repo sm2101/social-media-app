@@ -5,7 +5,8 @@ import { SET_CURRENT_USER } from "../../../app/Actions/types";
 import { registerUser, loginUser } from "../../../Functions/auth";
 import jwt_decode from "jwt-decode";
 import { message, Progress } from "antd";
-const Register = ({ history }) => {
+import { useHistory } from "react-router";
+const Register = () => {
   const [state, setState] = useState({
       email: "",
       password: "",
@@ -15,6 +16,7 @@ const Register = ({ history }) => {
     }),
     [passStrength, setPassStrength] = useState(0);
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleSubmit = (e) => {
     console.log("register user");
     e.preventDefault();
@@ -42,9 +44,10 @@ const Register = ({ history }) => {
               history.push(`/create-profile/${user._id}`);
             })
             .catch((err) => {
-              message.error({
-                content: err.response.data.message,
-              });
+              err.response &&
+                message.error({
+                  content: err.response.data.message,
+                });
             });
         })
         .catch((err) => {
@@ -52,6 +55,12 @@ const Register = ({ history }) => {
             content: err.response.data.message,
           });
         });
+    } else {
+      if (validate.errorEmail) {
+        message.error(validate.errorEmail);
+      } else if (validate.errorPass) {
+        message.error(validate.errorPass);
+      }
     }
   };
   function scorePassword(pass) {

@@ -9,6 +9,7 @@ import {
   getFollowing,
   getFollowers,
 } from "../../Functions/user";
+import emptyImg from "../../Images/pngwing.com.png";
 import { isEmpty } from "../../Validators/Validators";
 import PostCards from "../Cards/PostCards";
 import UserListModal from "../Modals/UserListModal";
@@ -179,10 +180,33 @@ const UserPage = ({ match }) => {
           </div>
           <div className="col-12 col-md-8 d-flex align-items-start justify-content-center offset-md-4">
             <div className="row w-100 d-flex justify-content-center">
-              {!isEmpty(posts) &&
+              {!isEmpty(posts) ? (
                 posts.map((post) => (
                   <PostCards post={post} key={post._id} user={user} />
-                ))}
+                ))
+              ) : (
+                <div
+                  style={{
+                    height: "calc(100vh - 10rem)",
+                  }}
+                >
+                  <img
+                    src={emptyImg}
+                    alt=""
+                    style={{
+                      width: "100px",
+                      filter: "grayscale(100%)",
+                    }}
+                    className="center-xy"
+                  />
+                  <small className="text-muted d-block mb-3 fw-bold text-center center-xy">
+                    Such Empty, Much wow
+                  </small>
+                  <p className="text-muted center-xy text-center">
+                    Make a post to see it here
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>

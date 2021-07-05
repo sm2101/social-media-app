@@ -502,3 +502,23 @@ a:hover {
   top: 50%;
   transform: translateY(-50%);
 }
+.notif-popover {
+  width: 300px;
+}
+.ant-tabs-nav-list,
+.ant-tabs-tab {
+  width: 100%;
+}
+.ant-tabs-tab {
+  justify-content: center;
+}
+.notif-cont {
+  padding: 0 15px;
+  min-height: 200px;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.ant-popover-inner {
+  border-radius: 10px !important;
+}

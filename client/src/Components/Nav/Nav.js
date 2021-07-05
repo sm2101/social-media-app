@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../app/Actions/auth";
 import Cookies from "js-cookie";
 import { Avatar, message } from "antd";
+import { getNotif } from "../../Functions/notif";
 import CreatePostModal from "../Modals/CreatePostModal";
 import SearchModal from "../Modals/SearchModal";
+import Notifications from "../Popovers/Notifications";
 const Nav = () => {
+  const [newNotif, setNewNotif] = useState([]),
+    [readNotif, setReadNotif] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector((state) => ({ ...state }));
@@ -16,6 +20,16 @@ const Nav = () => {
     message.success({ content: "Logged out" });
     history.push("/");
   };
+
+  const getNotifications = () => {
+    getNotif().then((res) => {
+      setNewNotif(res.data.newNotifs);
+      setReadNotif(res.data.readNotifs);
+    });
+  };
+  useEffect(() => {
+    getNotifications();
+  }, []);
   return (
     <>
       <div className="Nav">
@@ -38,6 +52,11 @@ const Nav = () => {
                       </NavLink>
                       <CreatePostModal />
                       <SearchModal />
+                      <Notifications
+                        newNotif={newNotif}
+                        readNotif={readNotif}
+                        getNotifications={getNotifications}
+                      />
                     </span>
                     <div className="btn-group">
                       <button
@@ -95,6 +114,14 @@ const Nav = () => {
               </div>
               <div className="col d-flex justify-content-center align-items-center">
                 <CreatePostModal />
+              </div>
+              <div className="col d-flex justify-content-center align-items-center">
+                <Notifications
+                  newNotif={newNotif}
+                  readNotif={readNotif}
+                  getNotifications={getNotifications}
+                  placement="topRight"
+                />
               </div>
               <div className="col d-flex justify-content-center align-items-center">
                 <SearchModal />

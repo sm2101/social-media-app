@@ -1,6 +1,7 @@
 const Post = require("../models/Posts"),
-  User = require("../models/User");
-
+  User = require("../models/User"),
+  NewNotif = require("../models/NewNotification"),
+  OnlineUser = require("../models/OnlineUsers");
 exports.createPost = (req, res) => {
   const user = req.user._id;
   new Post({ ...req.body, user })
@@ -144,16 +145,38 @@ exports.likePost = (req, res) => {
   const postId = req.params.id;
   const user = req.user._id;
 
-  Post.findByIdAndUpdate(postId, {
-    $addToSet: {
-      likes: user,
+  Post.findByIdAndUpdate(
+    postId,
+    {
+      $addToSet: {
+        likes: user,
+      },
     },
-  })
+    { new: true }
+  )
     .then((data) => {
-      res.json({
-        status: "Success",
-        message: "Post liked",
-      });
+      const recipentId = data.user;
+
+      new NewNotif({
+        user,
+        type: "liked",
+        postId,
+        recipentId,
+      })
+        .save()
+        .then((notif) => {
+          res.json({
+            status: "Success",
+            message: "Post liked, Notif created",
+          });
+        })
+        .catch((err) => {
+          res.json({
+            status: "Error",
+            message: "Cannot like post, an error occured",
+            err,
+          });
+        });
     })
     .catch((err) => {
       res.json({
@@ -204,10 +227,27 @@ exports.createComment = (req, res) => {
     },
   })
     .then((data) => {
-      res.json({
-        status: "Success",
-        message: "Comment Created",
-      });
+      const recipentId = data.user;
+
+      new NewNotif({
+        user,
+        type: "commented on",
+        postId,
+        recipentId,
+      })
+        .save()
+        .then((notif) => {
+          res.json({
+            status: "Success",
+            message: "Comment Created",
+          });
+        })
+        .catch((err) => {
+          res.json({
+            status: "Error",
+            err,
+          });
+        });
     })
     .catch((err) => {
       res.json({

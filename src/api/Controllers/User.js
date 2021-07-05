@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken"),
+  NewNotif = require("../models/NewNotification");
 
 exports.loginUser = (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
@@ -186,10 +187,26 @@ exports.followUser = (req, res) => {
         },
       })
         .then((result) => {
-          res.json({
-            status: "Success",
-            message: "User Followed",
-          });
+          new NewNotif({
+            user: followerId,
+            type: "followed",
+            recipentId: followingId,
+          })
+            .save()
+            .then((data) => {
+              res
+                .json({
+                  status: "Success",
+                  message: "User Followed, notif created",
+                })
+                .catch((err) => {
+                  res.json({
+                    status: "Success",
+                    message: "user Followed, problem in notif",
+                    err,
+                  });
+                });
+            });
         })
         .catch((err) => {
           res.json({

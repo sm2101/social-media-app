@@ -8,6 +8,7 @@ import { commentDrawer } from "../../app/Actions/drawer";
 import { useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import renderHTML from "react-render-html";
+import TimesAgo from "react-timesago";
 const PostCards = ({ post, user }) => {
   const [liked, setLiked] = useState(false);
   const history = useHistory();
@@ -123,11 +124,13 @@ const PostCards = ({ post, user }) => {
         </div>
         <div className="col-6 like-count">
           <span className="text-muted">
-            {post &&
-              post.createdAt &&
-              new Date(post.createdAt).toLocaleString("en-IN", {
-                dateStyle: "medium",
-              })}
+            {
+              post && post.createdAt && (
+                <TimesAgo time={post.createdAt} type="default" />
+              )
+              // new Date(post.createdAt).toLocaleString("en-IN", {
+              //   dateStyle: "medium",
+            }
           </span>
         </div>
       </div>

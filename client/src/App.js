@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import UserRoute from "./Components/Routes/UserRoute";
 // import PublicRoute from "./Components/Routes/PublicRoute";
@@ -14,12 +14,19 @@ import CommentDrawer from "./Components/Drawer/CommentDrawer";
 import Erro404 from "./Components/PublicPages/Erro404";
 import { ToastContainer } from "react-toastify";
 import { Switch, Route, Redirect } from "react-router-dom";
-
+import { connectSocket, addUser } from "./Functions/socket";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import "antd/dist/antd.css";
 function App() {
   const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    connectSocket();
+    if (user.isAuthenticated) {
+      addUser(user.user.id);
+    }
+  }, [user.isAuthenticated, user.user.id]);
   return (
     <>
       <ToastContainer />

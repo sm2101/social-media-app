@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../Functions/auth";
-import { io } from "socket.io-client";
 import { setUser } from "../../../app/Actions/auth";
 import jwt_decode from "jwt-decode";
 import { message } from "antd";
-const socket = io();
-
+import { addUser } from "../../../Functions/socket";
 const Login = ({ history }) => {
   const [email, setEmail] = useState(""),
     [password, setPassword] = useState(""),
@@ -24,8 +22,7 @@ const Login = ({ history }) => {
       .then((res) => {
         const token = res.data.token;
         const user = jwt_decode(token);
-        console.log(socket.connected);
-        socket.emit("newUser", user.id);
+        addUser(user.id);
         setUser(dispatch, user);
         history.push("/");
       })

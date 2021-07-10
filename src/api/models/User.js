@@ -34,6 +34,12 @@ const UserSchema = new Schema(
         ref: "users",
       },
     ],
+    online: {
+      type: Boolean,
+    },
+    lastActive: {
+      type: Date,
+    },
   },
   {
     timestamps: true,

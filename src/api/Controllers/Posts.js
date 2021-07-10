@@ -165,6 +165,12 @@ exports.likePost = (req, res) => {
       })
         .save()
         .then((notif) => {
+          OnlineUser.findOne({ user: recipentId }).then((result) => {
+            console.log(result);
+            if (result) {
+              req.app.io.to(result.socketId).emit("newNotif");
+            }
+          });
           res.json({
             status: "Success",
             message: "Post liked, Notif created",

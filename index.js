@@ -12,8 +12,8 @@ const express = require("express"),
   postRoutes = require("./src/api/Routes/Posts"),
   cloudinaryRoutes = require("./src/api/Routes/Cloudinary"),
   notifRoutes = require("./src/api/Routes/Notification"),
-  OnlineUser = require("./src/api/models/OnlineUsers"),
-  path = require("path");
+  convRoutes = require("./src/api/Routes/Conversation");
+path = require("path");
 const app = express();
 app.use(cors());
 app.use(morgan("dev"));
@@ -28,6 +28,7 @@ app.use("/api/profile", profileRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/cloudinary", cloudinaryRoutes);
 app.use("/api/notifications", notifRoutes);
+app.use("/api/conversation", convRoutes);
 
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer);
@@ -57,18 +58,8 @@ httpServer.listen(port, () => {
 app.io = io;
 io.on("connection", (socket) => {
   console.log("Socket Connected");
+  require("./src/socket/newUserRoutes")(socket);
   socket.on("newUser", (arg) => {
-    console.log("new user", [arg, socket.id]);
-    new OnlineUser({
-      user: arg,
-      socketId: socket.id,
-    })
-      .save()
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log("newUser", arg);
   });
 });

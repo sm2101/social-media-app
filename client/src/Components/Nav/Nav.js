@@ -7,6 +7,7 @@ import { Avatar, message } from "antd";
 import { getNotif } from "../../Functions/notif";
 import CreatePostModal from "../Modals/CreatePostModal";
 import SearchModal from "../Modals/SearchModal";
+import { socket } from "../../Functions/socket";
 import Notifications from "../Popovers/Notifications";
 const Nav = () => {
   const [newNotif, setNewNotif] = useState([]),
@@ -27,6 +28,11 @@ const Nav = () => {
       setReadNotif(res.data.readNotifs);
     });
   };
+  socket &&
+    socket.on("newNotif", () => {
+      console.log("New Notifications");
+      getNotifications();
+    });
   useEffect(() => {
     getNotifications();
   }, []);

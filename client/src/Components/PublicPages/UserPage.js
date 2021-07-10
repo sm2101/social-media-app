@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getCurrentProfile } from "../../Functions/profile";
 import { getUserPosts } from "../../Functions/posts";
 import { Avatar } from "antd";
+import TimesAgo from "react-timesago";
 import {
   followUser,
   unfollowUser,
@@ -97,6 +98,20 @@ const UserPage = ({ match }) => {
             <div className="row w-100">
               <div className="col-12">
                 <div className="user-card">
+                  <span className="user-status">
+                    {!isOwner ? (
+                      !isEmpty(usr) && usr.online ? (
+                        "Online"
+                      ) : (
+                        <TimesAgo
+                          time={usr.lastActive}
+                          type="default"
+                          suffix="ago"
+                          prefix="Last Active"
+                        />
+                      )
+                    ) : null}
+                  </span>
                   <div className="user-house">
                     <div
                       className={`user-img border-${
